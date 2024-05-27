@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+}
+
+.main-container {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: blue;
+  width: 60px;
+  padding: 5px;
+  height: 60px;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  border: 2px solid gray;
+  border-radius: 50%;
+  transform: scale(0.7);
+}
+
+.swiper-pagination-bullet {
+  background: red;
+}
+
+.blob {
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)), url("/background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: blur(20px);
+}
+
+.registerBg {
+  background: url("/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
