@@ -3,8 +3,6 @@ import Button from "../../Components/Button/Bg";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-let count = 0;
-
 const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
