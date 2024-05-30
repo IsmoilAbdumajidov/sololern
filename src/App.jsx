@@ -1,20 +1,44 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import HomePage from './Pages/HomePage/HomePage'
-import Register from './Pages/Register/Register'
-import LoginPage from './Pages/Login/LoginPage'
-
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage/HomePage";
+import Register from "./Pages/Register/Register";
+import LoginPage from "./Pages/Login/LoginPage";
+import UserRoute from "./Components/ProfileRoute";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<HomePage/>} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='/login' element={<LoginPage/>} />
+        <Route
+          path="/"
+          element={
+            <UserRoute>
+              <HomePage />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <UserRoute>
+              <Register />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UserRoute>
+              <LoginPage />
+            </UserRoute>
+          }
+        />
+        <Route path="/profile" element={<h1> Profile </h1>} />
       </Routes>
-    </div>
-  )
-}
 
-export default App
+      <Toaster />
+    </div>
+  );
+};
+
+export default App;
