@@ -4,6 +4,7 @@ import Register from "./Pages/Register/Register";
 import LoginPage from "./Pages/Login/LoginPage";
 import UserRoute from "./Components/ProfileRoute";
 import { Toaster } from "react-hot-toast";
+import ProfilePage from "./Pages/Profile";
 
 const App = () => {
   return (
@@ -33,7 +34,7 @@ const App = () => {
             </UserRoute>
           }
         />
-        <Route path="/profile" element={<h1> Profile </h1>} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
 
       <Toaster />
