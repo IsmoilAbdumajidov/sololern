@@ -2,9 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage/HomePage";
 import Register from "./Pages/Register/Register";
 import LoginPage from "./Pages/Login/LoginPage";
-import UserRoute from "./Components/ProfileRoute";
+import UserRoute from "./Components/Navigates/ProfileRoute";
 import { Toaster } from "react-hot-toast";
 import ProfilePage from "./Pages/Profile";
+import NotAuth from "./Components/Navigates/NotAuth";
 
 const App = () => {
   return (
@@ -34,7 +35,14 @@ const App = () => {
             </UserRoute>
           }
         />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/profile"
+          element={
+            <NotAuth>
+              <ProfilePage />
+            </NotAuth>
+          }
+        />
       </Routes>
 
       <Toaster />
