@@ -32,8 +32,8 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <h1>Your Password: {user.password}</h1>
-      <h1>Your Email: {user.email}</h1>
+      <h1>Your Password: {user?.password}</h1>
+      <h1>Your Email: {user?.email}</h1>
 
       <Button func={LogOut} text={"Log Out"} />
     </div>

@@ -57,12 +57,16 @@ const Navigating = () => {
               Teams
             </Link>
             <div className="flex gap-3">
-              <button className="py-[4px] md:py-2 px-5 md:px-6 border-2 border-blue-500 rounded-sm text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white">
-                <Link to="/login">Let{"'"}s start</Link>
-              </button>
-              <button className="py-[4px] md:py-2 px-3 md:px-4 border-2 border-blue-500 rounded-sm bg-blue-500 transition-all duration-300 hover:bg-transparent hover:text-blue-500 ">
-                <Link to="/register">Register</Link>
-              </button>
+              <Link to="/login">
+                <button className="py-[4px] md:py-2 px-5 md:px-6 border-2 border-blue-500 rounded-sm text-blue-500 transition-all duration-300 hover:bg-blue-500 hover:text-white">
+                  Let{"'"}s start
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="py-[4px] md:py-2 px-3 md:px-4 border-2 border-blue-500 rounded-sm bg-blue-500 transition-all duration-300 hover:bg-transparent hover:text-blue-500 ">
+                  Register
+                </button>
+              </Link>
             </div>
           </div>
         </div>
