@@ -43,6 +43,8 @@ const App = () => {
             </NotAuth>
           }
         />
+
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
 
       <Toaster />

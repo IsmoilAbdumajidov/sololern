@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../../Components/Button/Bg";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Navigating from "../../Components/Navbar/Navigating";
 
 const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem("user")) || { email: "" };
@@ -32,6 +33,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      <Navigating login={1} />
       <h1>Your Password: {user?.password}</h1>
       <h1>Your Email: {user?.email}</h1>
 
