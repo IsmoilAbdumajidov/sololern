@@ -35,13 +35,24 @@ const Register = () => {
   const CreateUser = async () => {
     try {
       let user = {
-        name: NameRef.current.value,
-        surname: lastNameRef.current.value || "",
         username: UsernameRef.current.value,
         email: EmailRef.current.value,
         password: PasswordRef.current.value,
-        group: GroupRef.current.value,
+        first_name: NameRef.current.value,
+        last_name: lastNameRef.current.value || "",
+        course: 1,
+        group_name: GroupRef.current.value,
       };
+
+      // {
+      //   "username": "zFuDjD-2eyPWA9waIEyjivm1VE19Vy7ewzAc-",
+      //   "email": "user@example.com",
+      //   "password": "string",
+      //   "first_name": "string",
+      //   "last_name": "string",
+      //   "course": 1,
+      //   "group_name": 0
+      // }
 
       setUserData(user);
       localStorage.setItem("user", JSON.stringify(user));
@@ -78,6 +89,17 @@ const Register = () => {
       nav("/");
     } else {
       notify("Qandaydur xatolik");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/account/register/", formData);
+
+      console.log("Registratsiya muvaffaqiyatli", response.data);
+    } catch (error) {
+      console.error("Registratsiya vaqtida xato yuz berdi", error);
     }
   };
 
@@ -119,6 +141,7 @@ const Register = () => {
                   Ref={PasswordRef}
                   inputChoose="secondary"
                 />
+
                 <Password
                   isRequired={true}
                   Ref={RePasswordRef}
