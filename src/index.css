@@ -10,6 +10,11 @@
   font-family: "Inter", sans-serif;
 }
 
+:root {
+  --loader-color: blue;
+  --loader-bg-color: rgba(255, 255, 255, 0.4);
+}
+
 .main-container {
   max-width: 1400px;
   margin-inline: auto;
@@ -23,7 +28,10 @@
   width: 60px;
   padding: 5px;
   height: 60px;
-  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  );
   border: 2px solid gray;
   border-radius: 50%;
   transform: scale(0.7);
@@ -34,7 +42,11 @@
 }
 
 .blob {
-  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)), url("/background.png");
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("/background.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -46,4 +58,48 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+/* Loader, HTML: <div class="loader"></div> */
+.loader {
+  width: 80px;
+  --b: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--loader-color);
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 70deg,
+      #0000 71deg 90deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l5 1s infinite;
+}
+.loaderWindow {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 111;
+  background-color: var(--loader-bg-color);
+
+  transition: 0.2s;
+}
+
+@keyframes l5 {
+  to {
+    transform: rotate(0.5turn);
+  }
 }

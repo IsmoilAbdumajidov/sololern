@@ -8,6 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
 
+import Select from "../../Components/Input/Select";
+import { AppConfig, SiteConfig } from "../../utils/site-config";
+import axios from "axios";
+
 const Register = () => {
   const PasswordRef = useRef({});
   const RePasswordRef = useRef({});
@@ -16,6 +20,14 @@ const Register = () => {
   const UsernameRef = useRef({});
   const GroupRef = useRef({});
   const EmailRef = useRef({});
+  const [course, setCourse] = useState();
+
+  const [loader, setLoader] = useState(0);
+
+  const onChange = (e) => {
+    setCourse(e.target.value);
+    console.log("select: ", course);
+  };
 
   const [userData, setUserData] = useState({});
   console.log(userData);
@@ -41,21 +53,18 @@ const Register = () => {
         first_name: NameRef.current.value,
         last_name: lastNameRef.current.value || "",
         course: 1,
-        group_name: GroupRef.current.value,
+        group_name: +GroupRef.current.value,
       };
 
-      // {
-      //   "username": "zFuDjD-2eyPWA9waIEyjivm1VE19Vy7ewzAc-",
-      //   "email": "user@example.com",
-      //   "password": "string",
-      //   "first_name": "string",
-      //   "last_name": "string",
-      //   "course": 1,
-      //   "group_name": 0
-      // }
+      console.log(user);
 
       setUserData(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      const response = await axios.post(
+        `${AppConfig.globalAPI}/account/register/`,
+        user
+      );
+      console.log(await response);
+      await localStorage.setItem("user", JSON.stringify(user));
 
       return true;
     } catch (error) {
@@ -65,31 +74,55 @@ const Register = () => {
   };
 
   const SignUp = async () => {
-    if (
-      !(
-        PasswordRef?.current?.value &&
-        RePasswordRef?.current?.value &&
-        NameRef?.current?.value &&
-        UsernameRef?.current?.value &&
-        GroupRef?.current?.value &&
-        EmailRef?.current?.value
-      )
-    ) {
-      notify("Maydonlar hammasi tolmadi", "err");
-      return;
-    }
+    // SetLoding
 
-    if (RePasswordRef?.current?.value !== PasswordRef?.current?.value) {
-      notify("Parollar mos emas", "err");
-      return;
-    }
-    if (await CreateUser()) {
-      notify("Tayyor");
-      localStorage.setItem("login", JSON.stringify(true));
-      nav("/");
-    } else {
-      notify("Qandaydur xatolik");
-    }
+    const response = await axios.get(
+      `https://solonammqi.pythonanywhere.com/api/account/groupsatt`
+    );
+
+    console.log(response.data);
+    // await setLoader(1);
+
+    // // Check empty
+    // if (
+    //   !(
+    //     PasswordRef?.current?.value &&
+    //     RePasswordRef?.current?.value &&
+    //     NameRef?.current?.value &&
+    //     UsernameRef?.current?.value &&
+    //     GroupRef?.current?.value &&
+    //     EmailRef?.current?.value
+    //   )
+    // ) {
+    //   notify("Maydonlar hammasi tolmadi", "err");
+    //   setLoader(0);
+    //   return false;
+    // }
+
+    // // PASSWORD MIN LENGHT
+    // if (PasswordRef?.current?.value.length < SiteConfig.passwordMinLength) {
+    //   notify("Parol uzunligi 6 tadan kam", "err");
+    //   setLoader(0);
+    //   return false;
+    // }
+
+    // // CHECK PASSWORDS
+    // if (RePasswordRef?.current?.value !== PasswordRef?.current?.value) {
+    //   notify("Parollar mos emas", "err");
+    //   setLoader(0);
+    //   return false;
+    // }
+
+    // // CREATE USER (FINAL)
+    // if (await CreateUser()) {
+    //   setLoader(0);
+    //   notify("Tayyor");
+    //   localStorage.setItem("login", JSON.stringify(true));
+    //   // nav("/");
+    // } else {
+    //   setLoader(0);
+    //   notify("Qandaydur xatolik", "err");
+    // }
   };
 
   const handleSubmit = async (e) => {
@@ -113,7 +146,12 @@ const Register = () => {
                 Registratsiya
               </h1>
             </center>
-            <form className="flex flex-col gap-4">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              className="flex flex-col gap-4"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 flex-col gap-4">
                 <Input
                   Ref={NameRef}
@@ -150,6 +188,8 @@ const Register = () => {
                 />
 
                 <Input Ref={GroupRef} text="Guruh nomi" inputType="text" />
+
+                <Select changeFunc={onChange} />
               </div>
 
               <div className="flex gap-3 justify-between sm:justify-end">
@@ -182,6 +222,13 @@ const Register = () => {
           </div>
         </div>
       </div>
+      {loader ? (
+        <div className="loaderWindow">
+          <div className="loader"></div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
