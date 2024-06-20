@@ -21,16 +21,33 @@ const Register = () => {
   const GroupRef = useRef({});
   const EmailRef = useRef({});
   const [course, setCourse] = useState();
+  const [group, setGroup] = useState();
 
-  const [loader, setLoader] = useState(0);
+  const [GroupData, setGroupData] = useState([]);
+
+  const [loader, setLoader] = useState(1);
+
+  const LoadingData = async () => {
+    if (!GroupData.length) {
+      await axios.get(`/api/account/groupsatt/`).then((res) => {
+        console.log(res.data);
+        setGroupData(res.data);
+        setLoader(0);
+      });
+    }
+  };
+
+  LoadingData();
 
   const onChange = (e) => {
     setCourse(e.target.value);
-    console.log("select: ", course);
+  };
+
+  const onChangeGroup = (e) => {
+    setGroup(e.target.value);
   };
 
   const [userData, setUserData] = useState({});
-  console.log(userData);
 
   const nav = useNavigate();
 
@@ -52,17 +69,14 @@ const Register = () => {
         password: PasswordRef.current.value,
         first_name: NameRef.current.value,
         last_name: lastNameRef.current.value || "",
-        course: 1,
-        group_name: +GroupRef.current.value,
+        course: +course || 1,
+        group_name: +group || GroupData[0].id,
       };
 
       console.log(user);
 
       setUserData(user);
-      const response = await axios.post(
-        `${AppConfig.globalAPI}/account/register/`,
-        user
-      );
+      const response = await axios.post(`/api/account/register/`, user);
       console.log(await response);
       await localStorage.setItem("user", JSON.stringify(user));
 
@@ -76,53 +90,46 @@ const Register = () => {
   const SignUp = async () => {
     // SetLoding
 
-    const response = await axios.get(
-      `https://solonammqi.pythonanywhere.com/api/account/groupsatt`
-    );
+    await setLoader(1);
 
-    console.log(response.data);
-    // await setLoader(1);
+    // Check empty
+    if (
+      !(
+        PasswordRef?.current?.value &&
+        RePasswordRef?.current?.value &&
+        NameRef?.current?.value &&
+        UsernameRef?.current?.value
+      )
+    ) {
+      notify("Maydonlar hammasi tolmadi", "err");
+      setLoader(0);
+      return false;
+    }
 
-    // // Check empty
-    // if (
-    //   !(
-    //     PasswordRef?.current?.value &&
-    //     RePasswordRef?.current?.value &&
-    //     NameRef?.current?.value &&
-    //     UsernameRef?.current?.value &&
-    //     GroupRef?.current?.value &&
-    //     EmailRef?.current?.value
-    //   )
-    // ) {
-    //   notify("Maydonlar hammasi tolmadi", "err");
-    //   setLoader(0);
-    //   return false;
-    // }
+    // PASSWORD MIN LENGHT
+    if (PasswordRef?.current?.value.length < SiteConfig.passwordMinLength) {
+      notify("Parol uzunligi 6 tadan kam", "err");
+      setLoader(0);
+      return false;
+    }
 
-    // // PASSWORD MIN LENGHT
-    // if (PasswordRef?.current?.value.length < SiteConfig.passwordMinLength) {
-    //   notify("Parol uzunligi 6 tadan kam", "err");
-    //   setLoader(0);
-    //   return false;
-    // }
+    // CHECK PASSWORDS
+    if (RePasswordRef?.current?.value !== PasswordRef?.current?.value) {
+      notify("Parollar mos emas", "err");
+      setLoader(0);
+      return false;
+    }
 
-    // // CHECK PASSWORDS
-    // if (RePasswordRef?.current?.value !== PasswordRef?.current?.value) {
-    //   notify("Parollar mos emas", "err");
-    //   setLoader(0);
-    //   return false;
-    // }
-
-    // // CREATE USER (FINAL)
-    // if (await CreateUser()) {
-    //   setLoader(0);
-    //   notify("Tayyor");
-    //   localStorage.setItem("login", JSON.stringify(true));
-    //   // nav("/");
-    // } else {
-    //   setLoader(0);
-    //   notify("Qandaydur xatolik", "err");
-    // }
+    // CREATE USER (FINAL)
+    if (await CreateUser()) {
+      setLoader(0);
+      notify("Tayyor");
+      localStorage.setItem("login", JSON.stringify(true));
+      nav("/");
+    } else {
+      setLoader(0);
+      notify("Qandaydur xatolik", "err");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -187,7 +194,8 @@ const Register = () => {
                   inputChoose="secondary"
                 />
 
-                <Input Ref={GroupRef} text="Guruh nomi" inputType="text" />
+                {/* <Input Ref={GroupRef} text="Guruh nomi" inputType="text" /> */}
+                <Select changeFunc={onChangeGroup} options={[...GroupData]} />
 
                 <Select changeFunc={onChange} />
               </div>

@@ -30,7 +30,7 @@ const Select = ({
             <option
               className={`outline-none w-[90%] py-1 px-2 text-base placeholder:text-base font-medium transition-all duration-300 focus:bg-transparent text-cyan-600  border-2 border-white focus:border-cyan-500 rounded pr-8 flex-1 ${addClass}`}
               key={v.id}
-              value={v.value}
+              value={v.id}
             >
               {v.name}
             </option>

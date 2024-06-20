@@ -109,13 +109,13 @@ const Navigating = ({ login = false }) => {
               toggle ? "h-fit" : "h-0"
             } flex gap-4  md:items-center flex-col md:flex-row overflow-hidden transition-all duration-300 md:h-auto text-[14px] lg:text-base`}
           >
-            {NavbarUser.map((v) => {
+            {NavbarUser.map((v, i) => {
               return v.type === "route" ? (
-                <NavLink to={v.path} className={linkClassName}>
+                <NavLink key={v.id} to={v.path} className={linkClassName}>
                   {v.name}
                 </NavLink>
               ) : v.type === "parent" ? (
-                <div className={linkClassName}>
+                <div key={v.id} className={linkClassName}>
                   <div>parent</div>
                   <IoIosArrowDown />
                 </div>
