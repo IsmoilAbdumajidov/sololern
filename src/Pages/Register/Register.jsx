@@ -30,7 +30,9 @@ const Register = () => {
   const LoadingData = async () => {
     if (!GroupData.length) {
       await axios
-        .get(`http://solonammqi.pythonanywhere.com/account/groupsatt/`)
+        .get(
+          `https://solonammqi.pythonanywhere.com/account/groupsatt/?format=json`
+        )
         .then((res) => {
           setGroupData(res.data);
           setLoader(0);
