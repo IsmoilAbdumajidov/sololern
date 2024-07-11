@@ -29,11 +29,12 @@ const Register = () => {
 
   const LoadingData = async () => {
     if (!GroupData.length) {
-      await axios.get(`/api/account/groupsatt/`).then((res) => {
-        console.log(res.data);
-        setGroupData(res.data);
-        setLoader(0);
-      });
+      await axios
+        .get(`http://solonammqi.pythonanywhere.com/account/groupsatt/`)
+        .then((res) => {
+          setGroupData(res.data);
+          setLoader(0);
+        });
     }
   };
 
