@@ -9,8 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import Select from "../../Components/Input/Select";
-import { AppConfig, SiteConfig } from "../../utils/site-config";
+import { SiteConfig } from "../../utils/site-config";
 import axios from "axios";
+import { Regisetrtext } from "../../utils/text";
 
 
 
@@ -20,7 +21,6 @@ const Register = () => {
   const NameRef = useRef({});
   const lastNameRef = useRef({});
   const UsernameRef = useRef({});
-  const GroupRef = useRef({});
   const EmailRef = useRef({});
   const [course, setCourse] = useState();
   const [group, setGroup] = useState();
@@ -31,11 +31,14 @@ const Register = () => {
 
   const LoadingData = async () => {
     if (!GroupData.length) {
-      await axios.get(`/api/account/groupsatt/`).then((res) => {
-        console.log(res.data);
-        setGroupData(res.data);
-        setLoader(0);
-      });
+      await axios
+        .get(
+          `https://solonammqi.pythonanywhere.com/account/groupsatt/?format=json`
+        )
+        .then((res) => {
+          setGroupData(res.data);
+          setLoader(0);
+        });
     }
   };
 
@@ -80,12 +83,13 @@ const Register = () => {
       setUserData(user);
       const response = await axios.post(`/api/account/register/`, user);
       console.log(await response);
+      console.log(userData);
       await localStorage.setItem("user", JSON.stringify(user));
 
       return true;
     } catch (error) {
       console.log("Create User Error:", error);
-      return false;
+      return error;
     }
   };
 
@@ -103,45 +107,41 @@ const Register = () => {
         UsernameRef?.current?.value
       )
     ) {
-      notify("Maydonlar hammasi tolmadi", "err");
+      notify(Regisetrtext.DontFill, "err");
       setLoader(0);
       return false;
     }
 
     // PASSWORD MIN LENGHT
     if (PasswordRef?.current?.value.length < SiteConfig.passwordMinLength) {
-      notify("Parol uzunligi 6 tadan kam", "err");
+      notify(Regisetrtext.PasswordLength, "err");
       setLoader(0);
       return false;
     }
 
     // CHECK PASSWORDS
     if (RePasswordRef?.current?.value !== PasswordRef?.current?.value) {
-      notify("Parollar mos emas", "err");
+      notify(Regisetrtext.PassWordIncorrect, "err");
       setLoader(0);
       return false;
     }
 
     // CREATE USER (FINAL)
-    if (await CreateUser()) {
+    const res = await CreateUser();
+    if (res === true) {
       setLoader(0);
-      notify("Tayyor");
+      notify(Regisetrtext.AllDone);
       localStorage.setItem("login", JSON.stringify(true));
       nav("/");
     } else {
       setLoader(0);
-      notify("Qandaydur xatolik", "err");
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("/account/register/", formData);
-
-      console.log("Registratsiya muvaffaqiyatli", response.data);
-    } catch (error) {
-      console.error("Registratsiya vaqtida xato yuz berdi", error);
+      console.log(res?.response?.data);
+      if (
+        res?.response?.data?.username[0] ===
+        "A user with that username already exists."
+      )
+        notify(Regisetrtext.usernameAlreadyExists, "err");
+      else notify(Regisetrtext.error, "err");
     }
   };
 
