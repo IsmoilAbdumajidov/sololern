@@ -12,6 +12,8 @@ import Select from "../../Components/Input/Select";
 import { AppConfig, SiteConfig } from "../../utils/site-config";
 import axios from "axios";
 
+
+
 const Register = () => {
   const PasswordRef = useRef({});
   const RePasswordRef = useRef({});
@@ -146,7 +148,7 @@ const Register = () => {
   return (
     <div className="flex registerBg  flex-col min-h-screen justify-center h-full w-full sm:min-w-[600px]">
       <div className="flex justify-center h-full w-full">
-        <div className="w-auto h-auto bg-indigo-600/60 backdrop-blur border-blue-600 rounded border-2 p-4">
+        <div className="w-auto h-auto bg-white-600/60 backdrop-blur  rounded border p-4">
           <div className="flex flex-col gap-6">
             <center>
               <h1 className="text-2xl md:text-3xl text-white font-semibold">

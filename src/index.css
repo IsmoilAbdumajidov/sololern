@@ -21,6 +21,38 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin-right: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: blue;
+  border-radius: 50px;
+  /* text-transform: ; */
+  margin-right: 2px;
+}
+@layer base {
+  .main-container {
+      @apply px-2 md:px-10 lg:px-10
+  }
+
+  label {
+      @apply flex flex-col
+  }
+
+  input, select {
+      @apply bg-transparent border p-2  w-full  rounded-md   focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base placeholder:text-white font-medium duration-300 border-cyan-500  text-white flex-1
+      
+  }
+}
 
 .swiper-button-prev,
 .swiper-button-next {
@@ -101,5 +133,11 @@
 @keyframes l5 {
   to {
     transform: rotate(0.5turn);
+  }
+}
+@media screen and (min-width:1480px) {
+  .main-container {
+      padding-left: 0;
+      padding-right: 0;
   }
 }

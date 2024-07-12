@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/HomePage/HomePage";
 import Register from "./Pages/Register/Register";
-import LoginPage from "./Pages/Login/LoginPage";
 import UserRoute from "./Components/Navigates/ProfileRoute";
 import { Toaster } from "react-hot-toast";
 import ProfilePage from "./Pages/Profile";
 import NotAuth from "./Components/Navigates/NotAuth";
+import Signup from "./Pages/Login/Signup";
+import Signin from "./Pages/Login/Signin";
+import Login from "./Pages/Login/Login";
 
 const App = () => {
   return (
@@ -19,22 +21,48 @@ const App = () => {
             </UserRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/register"
           element={
             <UserRoute>
               <Register />
             </UserRoute>
           }
-        />
+        /> */}
+
         <Route
-          path="/login"
+          path="/register"
           element={
             <UserRoute>
-              <LoginPage />
+              <Login />
             </UserRoute>
           }
-        />
+        >
+          <Route
+            path="sign-up"
+            element={
+              <UserRoute>
+                <Signup />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="sign-in"
+            element={
+              <UserRoute>
+                <Signin />
+              </UserRoute>
+            }
+          />
+          <Route
+            index
+            element={
+              <UserRoute>
+                <Signin />
+              </UserRoute>
+            }
+          />
+        </Route>
         <Route
           path="/profile"
           element={
