@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "../../Components/Button/Bg";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Navigating from "../../Components/Navbar/Navigating";
+import Button from "../../Components/utils/Button/Bg";
 
 const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem("user")) || { email: "" };

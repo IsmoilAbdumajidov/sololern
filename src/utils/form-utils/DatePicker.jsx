@@ -5,7 +5,7 @@ import TextError from './TextError'
 const DatePicker = ({ label, name, ...rest }) => {
     return (
         <label className='capitalize'>
-            <span className="text-black dark:text-white">{label}</span>
+            <span className="text-black">{label}</span>
             <Field name={name} {...rest}>
                 {({ form: { setFieldValue }, field }) => {
                     const { value } = field

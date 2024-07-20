@@ -11,7 +11,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
     (config) => {
-        const token = getFromLS("a-token");
+        const token = getFromLS("access");
         // console.log(config);
         if (token) {
             config.headers.authorization = `Bearer ${token}`;

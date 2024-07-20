@@ -1,17 +1,16 @@
 import React, { useRef, useState } from "react";
-import Input from "../../Components/Input/Simple";
-import Password from "../../Components/Input/Password";
-import BorderedBtn from "../../Components/Button/Border";
-import Button from "../../Components/Button/Bg";
 // import CustomBtn from "../../Components/Button/Custom";
 import { Link, useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
 
-import Select from "../../Components/Input/Select";
 import { SiteConfig } from "../../utils/site-config";
 import axios from "axios";
 import { Regisetrtext } from "../../utils/text";
+import Password from "../../Components/utils/Input/Password";
+import BorderedBtn from "../../Components/utils/Button/Border";
+import Button from "../../Components/utils/Button/Bg";
+import Select from "../../Components/utils/Input/Select";
 
 
 

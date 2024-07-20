@@ -13,7 +13,7 @@ const Checkbox = ({ label, name, ...rest }) => {
 							htmlFor={name}
 							className='capitalize inline-flex items-center gap-3 cursor-pointer'
 						>
-							<span className="text-black dark:text-white">{label || ''}</span>
+							<span className="text-black">{label || ''}</span>
 							<input
 								{...rest}
 								type='checkbox'

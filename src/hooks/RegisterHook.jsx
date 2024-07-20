@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { instance } from "../api/api";
 import toast from "react-hot-toast";
+import { addToLS } from "../utils/localStorage";
 
 export const useSignUp = ({setisSuccess,setUsername}) => {
     return useMutation((data) => instance.post("/account/register/", data, {
@@ -25,6 +26,7 @@ export const useSignIn = () => {
         {
             onSuccess: (data) => {
                 console.log(data);
+                addToLS("access",data?.data?.access)
 
             },
             onError: (error) => {
