@@ -9,10 +9,13 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: "Inter", sans-serif;
+  animation: appear 0.4s ease-out;
 }
 
+
 :root {
-  --loader-color: blue;
+  --loader-color: #3b82f6;
+  ;
   --loader-bg-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -22,6 +25,7 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -35,36 +39,36 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: blue;
+  background: #3b82f6;
+  ;
   border-radius: 50px;
   /* text-transform: ; */
   margin-right: 2px;
 }
+
 @layer base {
   .main-container {
-      @apply px-2 md:px-10 lg:px-10
+    @apply px-2 md:px-10 lg:px-10
   }
 
   label {
-      @apply flex flex-col
+    @apply flex flex-col
   }
 
   input, select {
-      @apply bg-transparent border p-2  w-full  rounded-md   focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base placeholder:text-white font-medium duration-300 border-cyan-500  text-white flex-1
-      
+    @apply bg-transparent border p-2 w-full rounded-md focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base  font-medium duration-300 border-cyan-500 flex-1
   }
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: blue;
+  color: #3b82f6;
+  ;
   width: 60px;
   padding: 5px;
   height: 60px;
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.5),
-    rgba(255, 255, 255, 0.5)
-  );
+  background: linear-gradient(rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5));
   border: 2px solid gray;
   border-radius: 50%;
   transform: scale(0.7);
@@ -75,10 +79,8 @@
 }
 
 .blob {
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.5)
-    ),
+  background: linear-gradient(rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.5)),
     url("/background.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -100,20 +102,17 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--loader-color);
-  -webkit-mask: repeating-conic-gradient(
-      #0000 0deg,
+  -webkit-mask: repeating-conic-gradient(#0000 0deg,
       #000 1deg 70deg,
-      #0000 71deg 90deg
-    ),
-    radial-gradient(
-      farthest-side,
+      #0000 71deg 90deg),
+    radial-gradient(farthest-side,
       #0000 calc(100% - var(--b) - 1px),
-      #000 calc(100% - var(--b))
-    );
+      #000 calc(100% - var(--b)));
   -webkit-mask-composite: destination-in;
   mask-composite: intersect;
   animation: l5 1s infinite;
 }
+
 .loaderWindow {
   width: 100%;
   height: 100%;
@@ -136,9 +135,34 @@
     transform: rotate(0.5turn);
   }
 }
+
 @media screen and (min-width:1480px) {
   .main-container {
-      padding-left: 0;
-      padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
+}
+
+
+.bg {
+  background-image: linear-gradient(to left, #0062ff 0%, rgb(150, 189, 252) 51%, #0062ff 100%);
+  background-size: 200% auto;
+  transition: all .5s ease-in-out;
+  color: #fff;
+}
+
+
+.bg:hover {
+  background-position: 100% 0;
+  transition: all .5s ease-in-out;
+}
+
+@keyframes appear {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }

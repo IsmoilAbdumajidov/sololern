@@ -5,7 +5,7 @@ import TextError from './TextError'
 const RadioButtons = ({ label, name, options, ...rest }) => {
     return (
         <label className='capitalize block w-full'>
-            <span className="text-black dark:text-white">{label || ""}</span>
+            <span className="text-black">{label || ""}</span>
             <Field name={name} {...rest}>
                 {({ field }) => {
                     return options.map((option, index) => (

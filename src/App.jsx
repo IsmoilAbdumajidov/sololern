@@ -8,6 +8,8 @@ import NotAuth from "./Components/Navigates/NotAuth";
 import Signup from "./Pages/Login/Signup";
 import Signin from "./Pages/Login/Signin";
 import Login from "./Pages/Login/Login";
+import Dashboard from "./Pages/Admin/dashboard";
+import Topic from "./Pages/Admin/topic";
 
 const App = () => {
   return (
@@ -21,15 +23,6 @@ const App = () => {
             </UserRoute>
           }
         />
-        {/* <Route
-          path="/register"
-          element={
-            <UserRoute>
-              <Register />
-            </UserRoute>
-          }
-        /> */}
-
         <Route
           path="/register"
           element={
@@ -71,6 +64,15 @@ const App = () => {
             </NotAuth>
           }
         />
+        <Route
+          path="/admin"
+          element={
+            <Dashboard />
+          }
+        >
+          <Route index element={<Topic/>} />
+          {/* <Route path="" element={<Topic/>} /> */}
+        </Route>
 
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>

@@ -2,14 +2,14 @@ import { Form, Formik } from 'formik';
 import React from 'react'
 import * as Yup from "yup"
 import FormControl from '../../utils/form-utils/FormControl';
-import Button from '../../Components/Button/Bg';
 import { Link } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getGroup, useSignUp, useVerify } from '../../hooks/RegisterHook';
 import { useState } from 'react';
-import OtpInput from '../../Components/OTPinput/OTPinput';
+import Button from '../../Components/utils/Button/Bg';
+import OtpInput from '../../Components/utils/OtpInput/OtpInput';
 
-const css = ""
+const css = "bg-transparent border p-2 w-full rounded-md focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base placeholder:text-white font-medium duration-300 border-cyan-500 text-white flex-1"
+
 
 
 const Signup = () => {
@@ -21,7 +21,7 @@ const Signup = () => {
         setOtp(enteredOtp);
     };
 
-    const {data} = getGroup()
+    const { data } = getGroup()
     console.log(data)
 
     // select options
@@ -60,8 +60,8 @@ const Signup = () => {
         confirmPassword: Yup.string().required("Ma'lumot kiritilmadi").oneOf([Yup.ref("password"), ""], "Parollar mos kelmadi").max(8, "8 tadan kam belgi kiritishingiz kerak").min(4, "4 tadan ko'p belgi kiritishingiz kerak"),
     })
 
-    const { mutate:signUpM } = useSignUp({ setisSuccess,setUsername })
-    const { mutate:verify } = useVerify()
+    const { mutate: signUpM } = useSignUp({ setisSuccess, setUsername })
+    const { mutate: verify } = useVerify()
     // onsubmit fucntion
     const onSubmit = (values, onSubmitProps) => {
         signUpM(values)
@@ -89,14 +89,14 @@ const Signup = () => {
                             formik => (
                                 <Form className='flex flex-col gap-4'>
                                     <div className='flex flex-col sm:grid gap-4 '>
-                                        <FormControl control={"input"} type="text" label="Ism" name="first_name" placeholder="Ism" />
-                                        <FormControl control={"input"} type="text" label="Familya" name="last_name" placeholder="Familya" />
-                                        <FormControl control={"input"} type="email" label="Email" name="email" placeholder="Email" />
-                                        <FormControl control={"input"} type="text" label="Username" name="username" placeholder="Username" />
-                                        <FormControl maxLength={8} control={"password"} name={"password"} label={"Parol"} placeholder={"Parol"} />
-                                        <FormControl maxLength={8} control={"password"} name={"confirmPassword"} label={"Parol"} placeholder={"Parolingizni takrorlang"} />
-                                        <FormControl control={"select"} options={selectCourse} label="Kurs" name="course" />
-                                        <FormControl control={"select"} options={[{ key: "Gruxni tanlang", value: "" }, ...selectGroup]} label="Grux" name="group_name" />
+                                        <FormControl className={css} labelClass='text-white' control={"input"} type="text" label="Ism" name="first_name" placeholder="Ism" />
+                                        <FormControl className={css} labelClass='text-white' control={"input"} type="text" label="Familya" name="last_name" placeholder="Familya" />
+                                        <FormControl className={css} labelClass='text-white' control={"input"} type="email" label="Email" name="email" placeholder="Email" />
+                                        <FormControl className={css} labelClass='text-white' control={"input"} type="text" label="Username" name="username" placeholder="Username" />
+                                        <FormControl className={css} labelClass='text-white' maxLength={8} control={"password"} name={"password"} label={"Parol"} placeholder={"Parol"} />
+                                        <FormControl className={css} labelClass='text-white' maxLength={8} control={"password"} name={"confirmPassword"} label={"Parol"} placeholder={"Parolingizni takrorlang"} />
+                                        <FormControl className={css} labelClass='text-white' control={"select"} options={selectCourse} label="Kurs" name="course" />
+                                        <FormControl className={css} labelClass='text-white' control={"select"} options={[{ key: "Gruxni tanlang", value: "" }, ...selectGroup]} label="Grux" name="group_name" />
                                         <div className="flex gap-3  col-span-2 justify-between sm:justify-end">
                                             <Button variant={"red"} btnType="reset" text="Tozalash" />
                                             <Button extraClass={"disabled:opacity-40 disabled:hover:cursor-not-allowed"} disabled={!formik.isValid || formik.isSubmitting}
@@ -133,7 +133,7 @@ const Signup = () => {
                 <div className="flex flex-col gap-6">
                     <OtpInput value={otp} separator={<span className='text-white'>-</span>} onChange={handleChange} numInputs={6} />
                     <div className="flex gap-3 mt-10 justify-center">
-                        <Button func={()=>setisSuccess(false)} variant={"red"}  btnType="reset" text="Ortga qaytish" />
+                        <Button func={() => setisSuccess(false)} variant={"red"} btnType="reset" text="Ortga qaytish" />
                         <Button func={submitHandler} extraClass={"disabled:opacity-40 disabled:cursor-not-allowed"}
                             btnType="submit"
                             text="SMS kodni jo'nating"

@@ -3,11 +3,11 @@ import React from 'react'
 import { useState } from 'react'
 import TextError from './TextError'
 
-const Password = ({ label, name, ...rest }) => {
+const Password = ({ label, labelClass, name, ...rest }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <label htmlFor={name} className='capitalize block w-full'>
-            <span className="text-black dark:text-white">{label}</span>
+            <span className={`text-black ${labelClass}`}>{label}</span>
             <div className="relative">
                 <Field id={name} name={name} {...rest}>
                     {({ field, form: { setFieldValue } }) => {

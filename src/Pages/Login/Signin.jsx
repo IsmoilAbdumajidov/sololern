@@ -1,19 +1,17 @@
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react'
+import React from 'react'
 import * as Yup from "yup"
 import FormControl from '../../utils/form-utils/FormControl';
 import { Link } from 'react-router-dom';
-import BorderedBtn from '../../Components/Button/Border';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSignIn } from '../../hooks/RegisterHook';
-import OtpInput from '../../Components/OTPinput/OTPinput';
-import Button from '../../Components/Button/Bg';
+import Button from '../../Components/utils/Button/Bg';
 
 
-const css = ""
+const css = " bg-transparent border p-2 w-full rounded-md focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base placeholder:text-white font-medium duration-300 border-cyan-500 text-white flex-1"
 
 
 const Signin = () => {
+  const {mutate} = useSignIn()
 
   // initial values
   const initialValues = {
@@ -24,22 +22,9 @@ const Signin = () => {
     username: Yup.string().required("Ma'lumot kiritlmadi"),
     password: Yup.string().required("Ma'lumot kiritilmadi").max(8, "8 tadan kam belgi kiritishingiz kerak").min(4, "4 tadan ko'p belgi kiritishingiz kerak"),
   })
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: useSignIn, onSuccess: (data) => {
-      // queryClient.invalidateQueries({ queryKey: ["getBuildingById"] });
-      console.log(data);
-    },
 
-  });
-  // console.log(mutation);
-  // onsubmit fucntion
   const onSubmit = (values, onSubmitProps) => {
-    mutation.mutate(values)
-    // setTimeout(() => {
-    //     onSubmitProps.setSubmitting(false)
-    //     onSubmitProps.resetForm()
-    // }, 3000);
+    mutate(values)
   }
 
   return (
@@ -54,8 +39,8 @@ const Signin = () => {
           formik => (
             <Form className='flex flex-col gap-4'>
               <div className='flex flex-col gap-4 '>
-                <FormControl control={"input"} type="text" label="Username" name="username" placeholder="Username" />
-                <FormControl maxLength={8} control={"password"} name={"password"} label={"Parol"} placeholder={"Parol"} />
+                <FormControl className={css} control={"input"} type="text" label="Username" name="username" placeholder="Username" />
+                <FormControl className={css} maxLength={8} control={"password"} name={"password"} label={"Parol"} placeholder={"Parol"} />
                 <div className="flex gap-3  col-span-2 justify-between sm:justify-end">
                   <Button variant={"red"} btnType="reset" text="Tozalash"/>
                   <Button extraClass={"disabled:opacity-40 disabled:cursor-not-allowed"} disabled={!formik.isValid || formik.isSubmitting}

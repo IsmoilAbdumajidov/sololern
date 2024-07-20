@@ -7,7 +7,7 @@ const FileInput = ({ label, name, ...rest }) => {
     const inpRef = useRef()
     return (
         <label htmlFor={name} className='capitalize block w-full'>
-            <span className="text-black dark:text-white">{label}</span>
+            <span className="text-black">{label}</span>
                 <Field name={name}>
                     {({ field, form: { setFieldValue } }) => {
                         const { value } = field
