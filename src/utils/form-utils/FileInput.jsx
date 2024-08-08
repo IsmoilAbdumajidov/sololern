@@ -3,11 +3,11 @@ import TextError from './TextError'
 import { ErrorMessage, Field } from 'formik'
 import { useRef } from 'react'
 
-const FileInput = ({ label, name, ...rest }) => {
+const FileInput = ({ label,labelClass, name, ...rest }) => {
     const inpRef = useRef()
     return (
         <label htmlFor={name} className='capitalize block w-full'>
-            <span className="text-black">{label}</span>
+            <span className={`text-black ${labelClass}`}>{label}</span>
                 <Field name={name}>
                     {({ field, form: { setFieldValue } }) => {
                         const { value } = field

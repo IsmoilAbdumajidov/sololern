@@ -25,7 +25,7 @@ export const useSignIn = () => {
     }),
         {
             onSuccess: (data) => {
-                console.log(data);
+                console.log(data?.data?.access);
                 addToLS("access",data?.data?.access)
 
             },
@@ -42,6 +42,7 @@ export const useVerify = () => {
         {
             onSuccess: (data) => {
                 console.log(data);
+                addToLS("access",data?.data?.access)
                 toast.success("Muvaffaqqiyatli ro'yxatdan o'tdingiz")
 
             },

@@ -55,7 +55,7 @@
     @apply flex flex-col
   }
 
-  input, select {
+  input, select,textarea {
     @apply bg-transparent border p-2 w-full rounded-md focus:outline-blue-500 outline-none px-2 text-base placeholder:text-base  font-medium duration-300 border-cyan-500 flex-1
   }
 }
