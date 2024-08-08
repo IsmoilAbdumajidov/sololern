@@ -5,7 +5,7 @@ import TextError from './TextError'
 const TextArea = ({ label,labelClass, name, ...rest }) => {
     return (
         <label htmlFor='name' className='capitalize block w-full'>
-            <span className={`text-black ${labelClass}`}>{label || ""}</span>
+            <div className={`text-black ${labelClass}`}>{label || ""}</div>
             <Field as="textarea" id={name} name={name} {...rest} />
             <ErrorMessage name={name} component={TextError} />
         </label>

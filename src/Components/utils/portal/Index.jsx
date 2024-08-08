@@ -8,6 +8,7 @@ export default function Portal({
 	state,
 	text,
 	variant,
+	data
 }) {
 	const [showModal, setShowModal] = useState(false);
 	return (
@@ -23,6 +24,7 @@ export default function Portal({
 				createPortal(
 					<ModalContent
 						state={state}
+						data={data}
 						onClose={() => setShowModal(false)}
 					/>,
 					document.body
