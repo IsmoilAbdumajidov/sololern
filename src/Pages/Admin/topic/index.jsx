@@ -11,7 +11,7 @@ const Topic = () => {
     return (
         <div className='mt-10'>
             <div className='flex justify-end'>
-                <Portal variant={'green'} text={"Fan Qo'shish"} ModalContent={TopicCrud} />
+                <Portal classNameBtn={'bg px-4 py-3'} text={"Fan Qo'shish"} ModalContent={TopicCrud} />
             </div>
             <div className='overflow-x-scroll'>
                 <div className='border-b px-3 text-sm font-semibold min-w-[900px] py-2 border-gray-300 flex justify-between'>
